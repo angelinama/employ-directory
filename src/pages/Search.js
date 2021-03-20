@@ -1,23 +1,31 @@
 import React, { Component } from "react";
-import API from "../utils/API";
+// import API from "../utils/API";
 import Container from "../components/Container";
 import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
 import Alert from "../components/Alert";
+import axios from "axios";
 
 class Search extends Component {
   state = {
     search: "",
-    breeds: [],
+    employees: [],
     results: [],
     error: "",
   };
 
-  // When the component mounts, get a list of all available base breeds and update this.state.breeds
+  getEmployeeList = async () => {
+    const {
+      data: { results: employees },
+    } = await axios.get("https://randomuser.me/api/?results=30");
+    // console.log(employees);
+    this.setState({ employees: employees });
+    console.log(this.state);
+  };
+
+  // When the component mounts, get a list of all employees
   componentDidMount() {
-    API.getBaseBreedsList()
-      .then((res) => this.setState({ breeds: res.data.message }))
-      .catch((err) => console.log(err));
+    this.getEmployeeList();
   }
 
   handleInputChange = (event) => {
@@ -26,14 +34,14 @@ class Search extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    API.getDogsOfBreed(this.state.search)
-      .then((res) => {
-        if (res.data.status === "error") {
-          throw new Error(res.data.message);
-        }
-        this.setState({ results: res.data.message, error: "" });
-      })
-      .catch((err) => this.setState({ error: err.message }));
+    // API.getDogsOfBreed(this.state.search)
+    //   .then((res) => {
+    //     if (res.data.status === "error") {
+    //       throw new Error(res.data.message);
+    //     }
+    //     this.setState({ results: res.data.message, error: "" });
+    //   })
+    //   .catch((err) => this.setState({ error: err.message }));
   };
   render() {
     return (
@@ -49,9 +57,10 @@ class Search extends Component {
           <SearchForm
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
-            breeds={this.state.breeds}
+            search={this.state.search}
           />
-          <SearchResults results={this.state.results} />
+          {/* default list is all employee */}
+          <SearchResults employees={this.state.employees} />
         </Container>
       </div>
     );

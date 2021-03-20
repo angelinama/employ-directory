@@ -4,9 +4,17 @@ import "./style.css";
 function SearchResults(props) {
   return (
     <ul className="list-group search-results">
-      {props.results.map(result => (
-        <li key={result} className="list-group-item">
-          <img alt="Dog" src={result} className="img-fluid" />
+      {props.employees.map((employee) => (
+        <li
+          key={employee.name.first + " " + employee.name.last}
+          className="list-group-item"
+        >
+          <img
+            alt={employee.name.first}
+            src={employee.picture.large}
+            className="img-fluid"
+          />
+          <p className="p">{employee.name.first}</p>
         </li>
       ))}
     </ul>
