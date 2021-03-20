@@ -33,6 +33,7 @@ class Search extends Component {
     event.preventDefault();
 
     this.setState({
+      search: "",
       results: this.state.employees.filter((emp) => {
         return (
           emp.name.first
@@ -47,7 +48,7 @@ class Search extends Component {
   };
 
   sortEmployees = (sortBy) => {
-    let employees = this.state.employees;
+    let employees = this.state.results;
     if (sortBy === "first") {
       employees.sort((a, b) => {
         if (a.name.first > b.name.first) return 1;
@@ -62,7 +63,7 @@ class Search extends Component {
       });
     }
 
-    this.setState({ employees: employees });
+    this.setState({ results: employees });
   };
 
   render() {
