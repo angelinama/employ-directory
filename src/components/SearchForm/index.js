@@ -3,6 +3,8 @@ import "./style.css";
 import Row from "../Row";
 import Col from "../Col";
 import Container from "../Container";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 // Using the datalist element we can create autofill suggestions based on the props.breeds array
 function SearchForm(props) {
@@ -32,7 +34,7 @@ function SearchForm(props) {
               onClick={props.handleFormSubmit}
               className="btn btn-success"
             >
-              Search
+              <FontAwesomeIcon icon={faSearch} />
             </button>
           </Col>
         </Row>

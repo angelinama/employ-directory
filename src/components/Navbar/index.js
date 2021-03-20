@@ -11,7 +11,7 @@ function Navbar() {
       <div>
         <ul className="navbar-nav">
           <li
-            cclassName={
+            className={
               window.location.pathname === "/search"
                 ? "nav-item active"
                 : "nav-item"
