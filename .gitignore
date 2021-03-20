@@ -118,3 +118,6 @@ dist
 # ds_store
 .DS_Store
 **/.DS_Store
+
+#build
+build/

@@ -1,23 +1,20 @@
-import React from "react";
-// import "./style.css";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortAlphaDown } from "@fortawesome/free-solid-svg-icons";
 import Col from "../Col";
 
 function EmployeeTable(props) {
-  //TODO change this whole function by using hooks
-  const handleSort = (e) => {
-    const spanEl = e.target.closest("span"); //get ancestor span cuz all the decendents of span is clickable
-    e.stopPropagation();
+  const [style, setStyle] = useState({
+    firstStyle: { opacity: 0.33 },
+    lastStyle: { opacity: 0.33 },
+  });
 
-    spanEl.setAttribute("style", "opacity:1");
-    if (spanEl.id === "first") {
-      props.sort("first");
-      //set last span style back to opacity: 0.33
-      document.getElementById("last").setAttribute("style", "opacity:0.33");
+  const handleClick = (term) => {
+    props.sort(term);
+    if (term === "first") {
+      setStyle({ lastStyle: { opacity: 0.33 }, firstStyle: { opacity: 1 } });
     } else {
-      props.sort("last");
-      document.getElementById("first").setAttribute("style", "opacity:0.33");
+      setStyle({ firstStyle: { opacity: 0.33 }, lastStyle: { opacity: 1 } });
     }
   };
 
@@ -29,13 +26,25 @@ function EmployeeTable(props) {
             <th scope="col">Photo</th>
             <th scope="col">
               First{" "}
-              <span onClick={handleSort} style={{ opacity: 0.33 }} id="first">
+              <span
+                onClick={() => {
+                  handleClick("first");
+                }}
+                style={style.firstStyle}
+                id="first"
+              >
                 <FontAwesomeIcon icon={faSortAlphaDown} />
               </span>
             </th>
             <th scope="col">
               Last{" "}
-              <span onClick={handleSort} style={{ opacity: 0.33 }} id="last">
+              <span
+                onClick={() => {
+                  handleClick("last");
+                }}
+                style={style.lastStyle}
+                id="last"
+              >
                 <FontAwesomeIcon icon={faSortAlphaDown} />
               </span>
             </th>
