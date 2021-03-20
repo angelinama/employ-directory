@@ -17,7 +17,7 @@ class Search extends Component {
     const {
       data: { results: employees },
     } = await axios.get("https://randomuser.me/api/?results=30");
-    console.log(employees);
+    // console.log(employees);
     this.setState({ employees: employees });
   };
 
@@ -41,6 +41,26 @@ class Search extends Component {
     //   })
     //   .catch((err) => this.setState({ error: err.message }));
   };
+
+  sortEmployees = (sortBy) => {
+    let employees = this.state.employees;
+    if (sortBy === "first") {
+      employees.sort((a, b) => {
+        if (a.name.first > b.name.first) return 1;
+        else if (a.name.first < b.name.first) return -1;
+        return 0;
+      });
+    } else {
+      employees.sort((a, b) => {
+        if (a.name.last > b.name.last) return 1;
+        else if (a.name.last < b.name.last) return -1;
+        return 0;
+      });
+    }
+
+    this.setState({ employees: employees });
+  };
+
   render() {
     return (
       <div>
@@ -58,7 +78,10 @@ class Search extends Component {
             search={this.state.search}
           />
           {/* default list is all employee */}
-          <EmployeeTable employees={this.state.employees} />
+          <EmployeeTable
+            employees={this.state.employees}
+            sort={this.sortEmployees}
+          />
         </Container>
       </div>
     );
