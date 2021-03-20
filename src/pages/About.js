@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function About() {
   return (
     <div>
-      <Hero backgroundImage="https://i.imgur.com/qkdpN.jpg">
+      <Hero backgroundImage="https://media.giphy.com/media/mBukxOCWsdVAXIJUUW/giphy.gif">
         <h1>Employee Directory</h1>
         <h2>A quick way to view and search employee!</h2>
       </Hero>
