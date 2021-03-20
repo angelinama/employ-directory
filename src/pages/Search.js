@@ -17,8 +17,7 @@ class Search extends Component {
     const {
       data: { results: employees },
     } = await axios.get("https://randomuser.me/api/?results=30");
-    // console.log(employees);
-    this.setState({ employees: employees });
+    this.setState({ employees: employees, results: employees });
   };
 
   // When the component mounts, get a list of all employees
@@ -32,14 +31,19 @@ class Search extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    // API.getDogsOfBreed(this.state.search)
-    //   .then((res) => {
-    //     if (res.data.status === "error") {
-    //       throw new Error(res.data.message);
-    //     }
-    //     this.setState({ results: res.data.message, error: "" });
-    //   })
-    //   .catch((err) => this.setState({ error: err.message }));
+
+    this.setState({
+      results: this.state.employees.filter((emp) => {
+        return (
+          emp.name.first
+            .toLowerCase()
+            .startsWith(this.state.search.toLowerCase()) ||
+          emp.name.last
+            .toLowerCase()
+            .startsWith(this.state.search.toLowerCase())
+        );
+      }),
+    });
   };
 
   sortEmployees = (sortBy) => {
@@ -66,6 +70,9 @@ class Search extends Component {
       <div>
         <Container style={{ minHeight: "80%" }}>
           <h3 className="text-center">Search By First Name or Last Name!</h3>
+          <p className="font-weight-bold text-center">
+            * Empty search term will relist all employees
+          </p>
           <Alert
             type="danger"
             style={{ opacity: this.state.error ? 1 : 0, marginBottom: 10 }}
@@ -79,7 +86,7 @@ class Search extends Component {
           />
           {/* default list is all employee */}
           <EmployeeTable
-            employees={this.state.employees}
+            employees={this.state.results}
             sort={this.sortEmployees}
           />
         </Container>

@@ -24,7 +24,7 @@ function SearchForm(props) {
               name="searchTerm"
               type="text"
               className="form-control"
-              placeholder="Type in a first name or last name"
+              placeholder="Type in any number of starting letters"
               id="searchTerm"
             />
           </Col>
