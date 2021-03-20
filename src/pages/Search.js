@@ -20,7 +20,6 @@ class Search extends Component {
     } = await axios.get("https://randomuser.me/api/?results=30");
     // console.log(employees);
     this.setState({ employees: employees });
-    console.log(this.state);
   };
 
   // When the component mounts, get a list of all employees
