@@ -10,13 +10,7 @@ function Navbar() {
       </Link>
       <div>
         <ul className="navbar-nav">
-          <li
-            className={
-              window.location.pathname === "/search"
-                ? "nav-item active"
-                : "nav-item"
-            }
-          >
+          <li className="nav-item">
             <Link to="/search" className="nav-link">
               Search
             </Link>
